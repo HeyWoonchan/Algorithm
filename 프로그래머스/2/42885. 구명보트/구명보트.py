@@ -1,14 +1,19 @@
 def solution(people, limit):
-
-    
     people.sort()
-    answer = 0
-    i,j = 0, len(people)-1
+    i = 0
+    j = len(people)-1
+    ans= 0
     while i<j:
-        if people[i] + people[j] <= limit:
+        tmp = people[i]+people[j]
+        if tmp>limit:
+            j-=1
+            ans+=1
+        else:
             i+=1
-        j-=1
-        answer+=1
-    
+            j-=1
+            ans+=1
+        if i==j:
+            ans+=1
+            break
         
-    return answer+1 if i==j else answer
+    return ans
