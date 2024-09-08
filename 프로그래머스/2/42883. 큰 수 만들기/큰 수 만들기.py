@@ -1,15 +1,12 @@
 def solution(number, k):
     st = []
-    for num in number:
-        while st and st[-1]<num:
-            if k>0:
-                st.pop()
-                k-=1
-            else:
-                break
-        st.append(num)
-    if k>0:
-        for i in range(k):
+    for i in number:
+        while k>0 and len(st)>0 and i>st[-1]:
             st.pop()
-        
-    return ''.join(st)
+            k-=1
+        st.append(i)
+    while k>0:
+        st.pop()
+        k-=1
+    answer = ''.join(st)
+    return answer
