@@ -4,7 +4,7 @@ def solution(citations):
     right = 100001
     while left<=right:
         h = (left+right)//2
-        print("nowh:",h)
+        # print("nowh:",h)
         over_h = 0
         under_h = 0
         for j in range(len(citations)):
@@ -12,7 +12,7 @@ def solution(citations):
                 over_h+=1
             elif citations[j]<=h:
                 under_h+=1
-        print(h,"번 이상 인용된 논문:",over_h)
+        # print(h,"번 이상 인용된 논문:",over_h)
         if over_h>=h and over_h+under_h==len(citations):
             left=h+1
         elif over_h<h:
