@@ -1,17 +1,17 @@
-answer = 0
+
 
 
 def solution(numbers, target):
-    global answer
-    visited = [0]*len(numbers)
-    def sol(n,numbers, arr, target):
-        global answer
+    def sol(n,numbers, tmp, target):
+        answer=0
         if n==len(numbers):
-            if sum(arr)==target:
+            if tmp==target:
                 answer+=1
             # print(arr)
-            return
-        sol(n+1,numbers, arr+[numbers[n]],target)
-        sol(n+1,numbers, arr+[-numbers[n]],target)
-    sol(0,numbers,[],target)
+            return answer
+        answer+=sol(n+1,numbers, tmp+numbers[n],target)
+        answer+=sol(n+1,numbers, tmp-numbers[n],target)
+        return answer
+    
+    answer=sol(0,numbers,0,target)
     return answer
