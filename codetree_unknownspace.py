@@ -202,7 +202,4 @@ timeWallDuration = findTimeWallExit()
 # 2차원 BFS 진행
 unknownSpaceDuration = findUnSpaceExit(timeWallDuration, floorStartR,floorStartC)
 #마지막 출력
-if unknownSpaceDuration==-1:
-    print(-1)
-else:
-    print(unknownSpaceDuration)
+print(unknownSpaceDuration)
