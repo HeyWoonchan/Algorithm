@@ -5,8 +5,9 @@ W=[list(map(int,input().split())) for _ in range(N)]
 어차피 최솟값을 이루는 cycle은
 어떤 노드에서 출발하는 경로여도 같은 cycle 한 종류이기 때문에 출발을 0으로 고정.
 
-dp[nownode][visited(2)] = 0부터 출발해서, nownode까지 왔을때, 
-방문점은 visited(2)인 상태에서, 방문 안한 나머지 것들을 순회하는 모든 경우 중 최소 비용
+dp[nownode][visitedMask(2)] = 0부터 출발해서, nownode까지 왔을때, 
+방문점은 visitedMask(2)인 상태에서, 방문 안한 나머지 것들을 순회하는 모든 경우 중 최소 비용
+dp[-][모든노드 방문 완료 mask(1<<N -1)]에서부터 역방향으로 채워짐
 """
 
 MASK = int("0b"+"1"*N,0)
