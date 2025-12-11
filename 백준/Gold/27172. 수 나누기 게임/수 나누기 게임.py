@@ -7,11 +7,8 @@ dp = [0]*MAXINT
 numberExist = [0]*MAXINT
 
 arr = list(map(int,input().split()))
-for i, a in enumerate(arr):
-    arr[i]=(i,a)
+for a in arr:
     numberExist[a]=1
-arr2 = sorted(arr,key=lambda x:x[1])
-
 
 
 """
@@ -23,11 +20,11 @@ bruteforce는 100000*100001/2번 수행해야 하나,
 
 
 
-for i, a in arr2:
+for a in arr:
     for j in range(a*2,MAXINT, a):
         if numberExist[j]==1:
             dp[j]-=1
             dp[a]+=1
 
-for i, a in arr:
+for a in arr:
     print(dp[a], end=' ')
