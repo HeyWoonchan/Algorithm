@@ -1,0 +1,1 @@
+print(bin(int('0b'+input(),0)*int('0b'+input(),0))[2:])
