@@ -1,9 +1,3 @@
-"""
-선분_그룹의 Docstring
-ccw, 두 선분이 만난다 + 분리집합?
-
-
-"""
 import sys
 input = sys.stdin.readline
 def ccw(x1,y1, x2,y2, x3,y3):
@@ -57,29 +51,13 @@ def union(a,b):
         parent[fb]=fa
         groupCnt[fa]+=groupCnt[fb]
         groupCnt[fb]=0
-    # if fa!=fb:
-    #     parent[fa]=fb
-    #     groupCnt[fb]+=groupCnt[fa]
-    #     groupCnt[fa]=1
 for i in range(1,N):
     for j in range(i):
         x1, y1, x2, y2 = lines[j]
         x3, y3, x4, y4 = lines[i]
-        # print("i:", lines[i])
-        # print("j:", lines[j])
-
-        #선분이 겹치는지 확인(ccw)
-
-        #i-1, i의 라인이 겹친다면, union(i-1,i)
+        #j, i의 라인이 겹친다면, union(j,i)
         if isMeet(x1, y1, x2, y2, x3, y3, x4, y4):
-            # print("만남, j에 i 추가")
             union(j,i)
-        # else:
-        #     print("안만남")
-
-    #만나지 않는 라인이라면, x
-# print(parent)
-# print(groupCnt)
 
 ans = 0
 for a in parent:
@@ -87,5 +65,3 @@ for a in parent:
         ans+=1
 print(ans)
 print(max(groupCnt))
-
-# print(isMeet(-1,-1,1,1,-2,-2,2,2))
