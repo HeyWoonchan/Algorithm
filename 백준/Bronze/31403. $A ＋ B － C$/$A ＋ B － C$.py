@@ -1,0 +1,6 @@
+a=input()
+b=input()
+c=input()
+a,b,c = map(int,(a,b,c))
+print(a+b-c)
+print(int("".join(str(a)+str(b)))-int(c))
