@@ -1,18 +1,12 @@
-# 팩토리얼 0의 개수
-
+fac=[1,1]
 N = int(input())
-
-factorial = 1
-
-for i in range(N):
-    factorial= (factorial * (i + 1))
-
-answer = 0
-while True:
-    if factorial%10!=0:
+for i in range(2,N+1):
+    fac.append(fac[i-1]*i)
+ans = str(fac[N])
+cnt=0
+# print(ans)
+for i in range(len(ans)-1,-1,-1):
+    if ans[i]!='0':
         break
-    else:
-        answer += 1
-        factorial //=10
-
-print(answer)
+    cnt+=1
+print(cnt)
