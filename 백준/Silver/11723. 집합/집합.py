@@ -1,30 +1,34 @@
 import sys
-input = sys.stdin.readline
-M = int(input())
-S = set()
+M = int(sys.stdin.readline())
+s1 = set([])
+
 for _ in range(M):
-    query = input().rstrip()
-    if query=="all":
-        S.clear()
-        for i in range(20):
-            S.add(i+1)
-    elif query=="empty":
-        S.clear()
-    else:
-        query, x = query.split()
-        x = int(x)
-        if query=="add":
-            S.add(x)
-        elif query=="remove":
-            if x in S:
-                S.remove(x)
-        elif query=="check":
-            if x in S:
-                print(1)
-            else:
-                print(0)
-        elif query=="toggle":
-            if x in S:
-                S.remove(x)
-            else:
-                S.add(x)
+    cmdarr = list(sys.stdin.readline().split())
+    if cmdarr[0]=='add':
+        if int(cmdarr[1]) in s1:
+            continue
+        s1.add(int(cmdarr[1]))
+    elif cmdarr[0]=='remove':
+        if int(cmdarr[1]) not in s1:
+            continue
+        s1.remove(int(cmdarr[1]))
+    elif cmdarr[0]=='check':
+        if len(s1)==0:
+            print(0)
+            continue
+        if int(cmdarr[1]) in s1:
+            print(1)
+        else:
+            print(0)
+    elif cmdarr[0]=='toggle':
+        if len(s1)==0:
+            s1.add(int(cmdarr[1]))
+            continue
+        if int(cmdarr[1]) in s1:
+            s1.remove(int(cmdarr[1]))
+        else:
+            s1.add(int(cmdarr[1]))
+    elif cmdarr[0]=='all':
+        s1=set([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20])
+    elif cmdarr[0]=='empty':
+        s1 = set([])
