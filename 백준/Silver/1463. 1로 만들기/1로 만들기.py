@@ -1,20 +1,13 @@
-# 1로 만들기
-from collections import deque
-N = int(input())
+X = int(input())
 
-def bfs(num):
+dp=[float('inf')]*(10**6+1)
+dp[1]=0
 
-    q = deque([(num,0)])
+for i in range(1,len(dp)-1):
+    dp[i+1]=min(dp[i+1],dp[i]+1)
+    if i*2<len(dp):
+        dp[i*2]=min(dp[i*2],dp[i]+1)
+    if i*3<len(dp):
+        dp[i*3]=min(dp[i*3],dp[i]+1)
 
-    while q:
-        number, depth =q.popleft()
-        if number==1:
-            return depth
-        if number%3 ==0:
-            q.append((number//3, depth+1))
-        if number%2==0:
-            q.append((number//2, depth+1))
-        q.append((number-1,depth+1))
-
-
-print(bfs(N))    
+print(dp[X])
