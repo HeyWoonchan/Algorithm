@@ -1,40 +1,32 @@
-import sys
-sys.setrecursionlimit(10**6)
-T = int(input())
+from collections import deque
+TC = int(input())
 
-def dfs(x,y):
-    global visited,marr
-    visited[y][x]=1
-    for i in range(4):
-        dx,dy = d[i]
-        nx, ny = x+dx, y+dy
-        if not (0<=nx<M and 0<=ny<N):
-            continue
-        if visited[ny][nx]==0 and marr[ny][nx]==1:
-            dfs(nx,ny)
-for _ in range(T):
-    M,N,K = map(int, input().split())
-
-    marr = [[0]*M for _ in range(N)]
-    for _ in range(K):
-        x,y = map(int, input().split())
-        marr[y][x]=1
-
-    # print(*marr, sep='\n')
-    # print()
-    d = [(0,1),(1,0),(-1,0),(0,-1)]
-
-    visited = [[0]*M for _ in range(N)]
+def bfs(r,c):
+    visited[r][c]=1
+    q=deque([(r,c)])
+    d = [(1,0),(0,1),(-1,0),(0,-1)]
+    while q:
+        r,c = q.popleft()
+        for dr, dc in d:
+            nr,nc = r+dr, c+dc
+            if not (0<=nr<N and 0<=nc<M):
+                continue
+            if graph[nr][nc]==1 and visited[nr][nc]==0:
+                visited[nr][nc]=1
+                q.append((nr,nc))
     
-
-    
-        
-    
+for _ in range(TC):
+    M,N,v=map(int,input().split())
+    graph = [[0]*M for _ in range(N)]
+    for _ in range(v):
+        x,y=map(int,input().split())
+        graph[y][x]=1
+    # print(graph)
+    visited=[[0]*M for _ in range(N)]
     cnt = 0
-    for y in range(N):
-        for x in range(M):
-            if visited[y][x]==0 and marr[y][x]==1:
-                dfs(x,y)
+    for i in range(N):
+        for j in range(M):
+            if graph[i][j]==1 and visited[i][j]==0:
+                bfs(i,j)
                 cnt+=1
-    # print(*visited, sep='\n')
     print(cnt)
