@@ -1,0 +1,1 @@
+print(sum(int(a) if a!='0' else 9 for a in input()))
