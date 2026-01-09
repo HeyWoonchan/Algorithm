@@ -1,37 +1,33 @@
-N, M =map(int, input().split())
+import sys
+input=sys.stdin.readline
+N,M=map(int,input().split())
+INF=float('inf')
+adj=[[INF]*N for _ in range(N)]
 
-# relation = [tuple(map(int, input().split())) for _ in range(M)]
 
-graph= [[1e9]*N for _ in range(N)]
-
-for i in range(M):
-    a, b = map(int, input().split())
-    graph[a-1][b-1]=1
-    graph[b-1][a-1]=1
+for _ in range(M):
+    A,B=map(int,input().split())
+    A-=1;B-=1
+    adj[A][B]=1
+    adj[B][A]=1
 
 for k in range(N):
     for i in range(N):
         for j in range(N):
-            graph[i][j] =min(graph[i][j], graph[i][k]+graph[k][j])
-
+            if i==j:
+                continue
+            adj[i][j]=min(adj[i][j],adj[i][k]+adj[k][j])
+bacon=INF
+ans=100
 
 for i in range(N):
+    t=0
     for j in range(N):
-        if i==j:
-            graph[i][j]=0
+        if adj[i][j]==INF:
+            continue
+        t+=adj[i][j]
+    if t<bacon:
+        bacon=t
+        ans=i
 
-mins = []
-for i in range(N):
-    mins.append(sum(graph[i]))
-
-result_min = min(mins)
-
-for i in range(N):
-    if mins[i]==result_min:
-        print(i+1)
-        break
-
-
-
-
-
+print(ans+1)
