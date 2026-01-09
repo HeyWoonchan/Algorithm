@@ -1,28 +1,26 @@
 from collections import deque
-N, K = map(int, input().split())
+N,K=map(int,input().split())
 
-"""
-바로 옆에서 한칸 갈수있는지, 아니면 *2했다가 올수있는지 확인
-"""
+q=deque([(N,0)])
 visited=[0]*100001
-def bfs(nowX):
-    global K
-    q = deque([(nowX,0)])
-    visited[nowX]=1
-    while q:
-        now, depth = q.popleft()
-        
-        if now==K:
-            return depth
-        if 0<=now-1<=100000 and visited[now-1]==0:
-            q.append((now-1,depth+1))
-            visited[now-1]=1
-        if 0<=now+1<=100000 and visited[now+1]==0:
-            q.append((now+1,depth+1))
-            visited[now+1]=1
-        if 0<=now*2<=100000 and visited[now*2]==0:
-            q.append((now*2,depth+1))
-            visited[now*2]=1
+visited[N]=1
+
+while q:
+    x,t=q.popleft()
+    if x==K:
+        print(t)
+        break
+    
+    if x-1>=0 and visited[x-1]==0:
+        visited[x-1]=1
+        q.append((x-1,t+1))
+    if x+1<=100000 and visited[x+1]==0:
+        visited[x+1]=1
+        q.append((x+1,t+1))
+    if 2*x<=100000 and visited[2*x]==0:
+        visited[x*2]=1
+        q.append((x*2,t+1))
+    
 
 
-print(bfs(N))
+    
