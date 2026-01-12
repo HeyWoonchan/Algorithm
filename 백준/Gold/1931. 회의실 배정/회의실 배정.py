@@ -12,12 +12,9 @@ cnt=0
 nowEnd=0
 while hq:
     end,start=heapq.heappop(hq)
-    # print("뽑음",start,end)
     while hq and start<nowEnd:
         end,start=heapq.heappop(hq)
-        # print("끝나는것보다 시작이 빨라버림, 아닐때까지 더뽑음.",start,end)
     if start>=nowEnd:
         nowEnd=end
-        # print("배정 완료,끝나는 시간 재설정",nowEnd)
         cnt+=1
 print(cnt)
