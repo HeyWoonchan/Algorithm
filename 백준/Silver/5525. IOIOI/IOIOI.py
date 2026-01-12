@@ -1,27 +1,48 @@
-#IOIOI
+import sys
+N = int(sys.stdin.readline())
+M = int(sys.stdin.readline())
+S = sys.stdin.readline()
 
-# p1  IOI
-# p2 IOIOI
-# p3 IOIOIOI
-# pn (O가 N개)
+Pn =''.join(['I' if i % 2 == 0 else 'O' for i in range((2*N)+1)])
 
-# input - N, M(S의 길이), S
-# task - M길이의 S문자열에 pn이 몇개가 들어가있는가?
+#kmp
+#make table
 
-N = int(input())
-M = int(input())
-S = input()
+#https://velog.io/@rhdmstj17/KMP-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-python-%EB%AC%B8%EC%9E%90%EC%97%B4-%ED%83%90%EC%83%89-%EA%B0%80%EC%9E%A5-%EC%89%BD%EA%B2%8C-%EC%9D%B4%ED%95%B4%ED%95%B4%EB%B3%B4%EA%B8%B0
+#참조
 
-find_str = ''
-for _ in range(N):
-    find_str+='I'
-    find_str+='O'
-find_str+='I'
+def KMP_table(pattern):
+    lp = len(pattern)
+    tb = [0 for _ in range(lp)]
 
-count = 0
-for i in range(len(S)-len(find_str)+1):
-    # print(S[i:i+len(find_str)], find_str)
-    if str(S[i:i+len(find_str)])==find_str:
-        count+=1
+    pidx = 0
+    for idx in range(1,lp):
+        while pidx > 0 and pattern[pidx] != pattern[idx]:
+            pidx = tb[pidx-1]
 
-print(count)
+        if pattern[idx] == pattern[pidx]:
+            pidx +=1
+            tb[idx]=pidx
+
+    return tb
+
+def KMP(word, pattern):
+    table = KMP_table(pattern)
+
+    results = []
+
+    pidx=0
+
+    for idx in range(len(word)):
+        while pidx >0 and word[idx] != pattern[pidx]:
+            pidx = table[pidx-1]
+        if word[idx]==pattern[pidx]:
+            if pidx == len(pattern)-1:
+                results.append(idx-len(pattern)+2)
+                pidx = table[pidx]
+            else:
+                pidx+=1
+    return results
+
+result = KMP(S, Pn)
+print(len(result))
