@@ -1,31 +1,24 @@
 import sys,heapq
-input = sys.stdin.readline
-
+input= sys.stdin.readline
+INF = float('inf')
 N = int(input())
-M = int(input())
-adj_list = [[] for _ in range(N+1)]
+M=int(input())
+graph = [[] for _ in range(N+1)]
 for _ in range(M):
-    s, e, c = map(int, input().split())
-    adj_list[s].append((e,c))
+    U,V,cost = map(int,input().split())
+    graph[U].append((V,cost))
 start, end = map(int,input().split())
 
-INF = float('inf')
-def dijkstra(start, end):
-    dist = [INF]*(N+1)
-    dist[start]=0
-    q=[]
-    heapq.heappush(q,(0,start))
+dist = [INF]*(N+1)
 
-    while q:
-        nowcost, nownode = heapq.heappop(q)
-        if dist[nownode]<nowcost:
-            continue
-        for nextnode, nextcost in adj_list[nownode]:
-            tmp_cost = nowcost+nextcost
-            if dist[nextnode]>tmp_cost:
-                dist[nextnode]=tmp_cost
-                heapq.heappush(q, (tmp_cost,nextnode))
-    return dist[end]
+hq = [(0,start)]
+while hq:
+    nowDist, nowNode = heapq.heappop(hq)
+    if dist[nowNode]<nowDist:
+        continue
+    for nextNode, cost in graph[nowNode]:
+        if nowDist+cost<dist[nextNode]:
+            dist[nextNode]=nowDist+cost
+            heapq.heappush(hq, (nowDist+cost, nextNode))
 
-print(dijkstra(start,end))
-
+print(dist[end])
