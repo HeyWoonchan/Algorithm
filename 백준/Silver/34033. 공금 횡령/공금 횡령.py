@@ -9,8 +9,6 @@ for _ in range(N):
 abnCnt=0
 for _ in range(M):
     name, price=input().split()
-    if name not in normal:
-        continue
-    if normal[name]*105/100<int(price):
+    if normal.get(name,0)*105/100<int(price):
         abnCnt+=1
 print(abnCnt)
