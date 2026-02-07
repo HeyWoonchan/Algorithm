@@ -1,2 +1,1 @@
-a = open(0).read().rstrip()
-print('%.2f'%sum(map(float,a.split('\n'))))
+print('%.2f'%sum(map(float,open(0).read().rstrip().split('\n'))))
