@@ -1,2 +1,1 @@
-a,b=map(int,input().split())
-print(abs(a-b))
+print(abs(eval(input().replace(' ','-'))))
