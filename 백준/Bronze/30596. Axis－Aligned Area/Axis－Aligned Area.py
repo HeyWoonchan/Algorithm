@@ -1,3 +1,2 @@
 sticks = [int(input()) for _ in range(4)]
-sticks.sort()
-print(min(sticks[2:])*(min(sticks[:2])))
+print(sticks[0]*sticks[2])
