@@ -7,7 +7,6 @@ for _ in range(nlines):
     if ss=='START':
         starts[number-1]=hh*60+mm
     else:
-        end = hh*60+mm
-        total[number-1]+=end-starts[number-1]
+        total[number-1]+=hh*60+mm-starts[number-1]
 for i in range(N):
     print(total[i]//60, total[i]%60)
