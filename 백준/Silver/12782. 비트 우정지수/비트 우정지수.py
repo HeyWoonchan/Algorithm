@@ -1,3 +1,5 @@
+import sys
+input = sys.stdin.readline
 TC = int(input())
 for _ in range(TC):
     a,b= input().split()
