@@ -1,42 +1,53 @@
-import heapq
-N, E = map(int, input().split())
+import sys, heapq
+input = sys.stdin.readline
+INF = float('inf')
+N, E = map(int,input().split())
+graph =[[] for _ in range(N+1)]
 
-adj_list = [[] for _ in range(N)]
 for _ in range(E):
-    a,b,c = map(int, input().split())
-    adj_list[a-1].append((b-1,c))
-    adj_list[b-1].append((a-1,c))
+    a,b,c = map(int,input().split())
+    graph[a].append((b,c))
+    graph[b].append((a,c))
 
-v1, v2 = map(int, input().split())
+v1,v2 = map(int,input().split())
 
-# solution for 1 -> N, must visit v1 and v2
-# revisiting nodes and edges is possible
-"""
-v1, v2정점을 거치는 최단경로
-1->v1->v2->N
-1->v2->v1->N?
-"""
-INF = int(1e9)
-def dijkstra(start):
-    dist = [INF]*N
-    dist[start]=0
-    pq = []
-    heapq.heappush(pq,(0,start))
-    while pq:
-        nowdist, nownode = heapq.heappop(pq)
-        for node, edge in adj_list[nownode]:
-            tmp_dist = nowdist+edge
-            if tmp_dist<dist[node]:
-                heapq.heappush(pq,(tmp_dist,node))
-                dist[node]=tmp_dist
-    return dist
 
-dist0=dijkstra(0)
-distv1=dijkstra(v1-1)
-distv2=dijkstra(v2-1)
-v1tov2 = dist0[v1-1]+distv1[v2-1]+distv2[N-1]
-v2tov1 = dist0[v2-1]+distv2[v1-1]+distv1[N-1]
-if v1tov2>=INF and v2tov1>=INF:
-    print(-1)
+
+def dijkstra(start, end):
+    hq = [(0,start)]
+    dist = [INF]*(N+1)
+
+    while hq:
+        nowCost, nowNode = heapq.heappop(hq)
+
+        if dist[nowNode]<nowCost:
+            continue
+
+        for nextNode, nextCost in graph[nowNode]:
+            newCost = nowCost+nextCost
+
+            if dist[nextNode]>newCost:
+                dist[nextNode]=newCost
+                heapq.heappush(hq,(newCost,nextNode))
+    
+    return dist[end]
+if v1==1:
+    oneTov1=0
 else:
-    print(min(v1tov2,v2tov1))
+    oneTov1 = dijkstra(1,v1)
+v1Tov2 = dijkstra(v1,v2)
+v2Tov1 = dijkstra(v2,v1)
+ontTov2 = dijkstra(1,v2)
+v1ToN = dijkstra(v1,N)
+if v2==N:
+    v2ToN=0
+else:
+    v2ToN = dijkstra(v2,N)
+
+#1->v1->v2->N
+firstOption = oneTov1+v1Tov2+v2ToN
+
+#1->v2->v1->N
+secondOption = ontTov2+v2Tov1+v1ToN
+ans = min(firstOption,secondOption)
+print(ans if ans != INF else -1)
