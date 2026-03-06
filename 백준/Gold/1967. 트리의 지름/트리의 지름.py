@@ -1,29 +1,44 @@
-import sys
-sys.setrecursionlimit(10**6)
+import heapq
+INF = float('inf')
 n = int(input())
 
-adj_list = [[] for _ in range(n+1)]
+graph = [[] for _ in range((n+1))]
 for _ in range(n-1):
-    a, b, c = map(int,input().split())
-    adj_list[a].append((b,c))
-    adj_list[b].append((a,c))
+    a,b,c = map(int,input().split())
+    graph[a].append((b,c))
+    graph[b].append((a,c))
 
-visited= [0]*(n+1)
+def dijkstra(start):
+    hq= [(0,start)]
+    dist = [INF]*(n+1)
+    dist[start]=0
 
-maxcost, maxnode=0,0
-def dfs(node,cost):
-    global maxcost, maxnode
-    visited[node]=1
-    if cost>maxcost:
-        maxcost = cost
-        maxnode = node
-    for nextnode, nextcost in adj_list[node]:
-        if visited[nextnode]==0:
-            dfs(nextnode, cost+nextcost)
+    while hq:
+        nowCost, nowNode = heapq.heappop(hq)
+        
+        if dist[nowNode]<nowCost:
+            continue
 
+        for nextNode, nextCost in graph[nowNode]:
+            newCost = nowCost+nextCost
 
-dfs(1,0)
-visited= [0]*(n+1)
-dfs(maxnode,0)
+            if dist[nextNode]>newCost:
+                dist[nextNode] = newCost
+                heapq.heappush(hq, (newCost,nextNode))
 
-print(maxcost)
+    return dist
+
+first = dijkstra(1)
+findFirstMax = [ ]
+for i in range(0,n+1):
+    if first[i]==INF:
+        continue
+    findFirstMax.append((first[i],i))
+findFirstMax.sort()
+second = dijkstra(findFirstMax[-1][1])
+secondMax = 0
+for j in second:
+    if j!=INF:
+        secondMax = max(secondMax,j)
+print(findFirstMax[0][0]+secondMax)
+
