@@ -40,5 +40,4 @@ secondMax = 0
 for j in second:
     if j!=INF:
         secondMax = max(secondMax,j)
-print(findFirstMax[0][0]+secondMax)
-
+print(secondMax)
