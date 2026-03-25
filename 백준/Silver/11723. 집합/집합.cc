@@ -29,12 +29,7 @@ int main(){
         }
         else if (command=="toggle"){
             cin>>x;
-            if (S&(1<<x)){
-                S&=~(1<<x);
-            }
-            else{
-                S|=(1<<x);
-            }
+            S^=(1<<x);
         }
         else if (command=="all")
         {
