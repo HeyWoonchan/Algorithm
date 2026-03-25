@@ -18,16 +18,11 @@ int main(){
         int nowSum=0;
         int index=0;
         for (int mask=1;mask<=max;mask<<=1,index++){
-            // cout<<"mask:"<<bitset<8>(mask)<<'\n';
-            // cout<<"i:"<<bitset<8>(i)<<"\n\n";
             if (mask&i){
-                // cout<<"matched!"<<'\n';
                 nowSum+=arr[index];
-                // cout<<"sum:"<<arr[index]<<'\n';
             }
             
         }
-        // cout<<"이번턴 nowsum:"<<nowSum<<'\n';
         if (i!=0 && nowSum==S){
             res++;
         }
