@@ -61,9 +61,6 @@ int main(){
     for (LL i=1;i<(1LL<<N)-2;i++){
         for (LL j=i+1;j<(1LL<<N)-1;j++){
             if (((i&j)==0) && ((i|j)==(1<<N)-1)){
-                
-                // cout<<"imask,jmask\n";
-                // cout<<bitset<10>(i)<<'\n'<<bitset<10>(j)<<'\n';
                 int iNode=0;
                 int jNode=0;
                 while ((i & (1LL<<iNode))==0){
@@ -72,11 +69,9 @@ int main(){
                 while ((j & (1LL<<jNode))==0){
                     jNode++;
                 }
-                // cout<<"iNodeStart "<<iNode<<'\n';
-                // cout<<"jNodeStart "<<jNode<<'\n';
                 bool iConnectedFlag = bfs(iNode,graph,i); //i 선거구가 이어져있는지 확인
                 bool jConnectedFlag = bfs(jNode,graph,j); //j 선거구가 이어져있는지 확인
-                // cout<<"iF:"<<iConnectedFlag<<",jF:"<<jConnectedFlag<<'\n';
+
                 if (iConnectedFlag&&jConnectedFlag){
                     int iSum=0;
                     int jSum=0;
@@ -90,11 +85,8 @@ int main(){
                             jSum+=population[k];
                         }
                     }
-                    // cout<<"iSum:"<<iSum<<",jSum:"<<jSum<<'\n';
                     answer = min(answer,abs(iSum-jSum));
                 }
-                // cout<<'\n';
-
             }
         }
     }
