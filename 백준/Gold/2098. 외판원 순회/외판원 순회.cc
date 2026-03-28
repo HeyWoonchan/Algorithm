@@ -15,6 +15,7 @@ int main(){
     }
     // cout<<N<<'\n';
     vector<vector<int>> dp((1<<N),vector<int>(N,INF));
+    dp[1][0]=0;
     //dp[mask|(1<<nextNode)][nextNode] = min(dp[mask][nextNode], dp[Mask|(1<<nextNode)][]+W[prev][nowNode])
     for(int mask=0;mask<(1<<N)-1;mask++){
         for(int now=0;now<N;now++){
@@ -26,10 +27,6 @@ int main(){
                     continue;
                 }
                 if (mask&(1<<next)){
-                    continue;
-                }
-                if (mask==1){ //->x면 그냥 w[i][j]
-                    dp[mask|(1<<next)][next]=W[now][next];
                     continue;
                 }
 
