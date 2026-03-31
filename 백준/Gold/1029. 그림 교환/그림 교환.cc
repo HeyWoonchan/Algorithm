@@ -4,26 +4,22 @@
 using namespace std;
 int dp[1<<15][15][10];
 int C[15][15];
-int ans=0;
 
-void dfs(int depth, int mask, int nowArtist, int lastCost, int maxPeople){
-    // cout<<"dfs"<<depth<<'\n';
-    ans = max(ans,depth);
-
+int dfs(int mask, int nowArtist, int lastCost, int maxPeople){
     int &res = dp[mask][nowArtist][lastCost];
     if (res!=-1){
-        return;
+        return res;
     }
     res=1;
 
     for(int nextArtist=0;nextArtist<maxPeople;nextArtist++){
         if ((mask&(1<<nextArtist))==0 && (lastCost<=C[nowArtist][nextArtist])){
             
-            dfs(depth+1,mask|(1<<nextArtist),nextArtist,C[nowArtist][nextArtist],maxPeople);
+            res = max(res,dfs(mask|(1<<nextArtist),nextArtist,C[nowArtist][nextArtist],maxPeople)+1);
             
         }  
     }
-
+    return res;
 }
 
 int main(){
@@ -39,6 +35,6 @@ int main(){
         }
     }
     // cout<<C[1][0];
-    dfs(1,1,0,0,N);
-    cout<<ans;
+    
+    cout<<dfs(1,0,0,N);
 }
