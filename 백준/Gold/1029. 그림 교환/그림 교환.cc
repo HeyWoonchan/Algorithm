@@ -14,13 +14,13 @@ void dfs(int depth, int mask, int nowArtist, int lastCost, int maxPeople){
     if (res!=-1){
         return;
     }
-
+    res=1;
 
     for(int nextArtist=0;nextArtist<maxPeople;nextArtist++){
         if ((mask&(1<<nextArtist))==0 && (lastCost<=C[nowArtist][nextArtist])){
             
             dfs(depth+1,mask|(1<<nextArtist),nextArtist,C[nowArtist][nextArtist],maxPeople);
-            dp[mask|(1<<nextArtist)][nextArtist][C[nowArtist][nextArtist]]=1;
+            
         }  
     }
 
