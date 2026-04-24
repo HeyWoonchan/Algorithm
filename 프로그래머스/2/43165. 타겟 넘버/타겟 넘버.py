@@ -1,17 +1,14 @@
-
-
-
 def solution(numbers, target):
-    def sol(n,numbers, tmp, target):
-        answer=0
-        if n==len(numbers):
-            if tmp==target:
-                answer+=1
-            # print(arr)
-            return answer
-        answer+=sol(n+1,numbers, tmp+numbers[n],target)
-        answer+=sol(n+1,numbers, tmp-numbers[n],target)
-        return answer
-    
-    answer=sol(0,numbers,0,target)
+    def sol(depth, nowSum):
+        if depth>len(numbers):
+            return 0
+        if depth==len(numbers) and nowSum==target:
+            return 1
+        # print(depth, nowSum)
+        ans=0
+        if depth<len(numbers):
+            ans+=sol(depth+1, nowSum+numbers[depth])
+            ans+=sol(depth+1, nowSum-numbers[depth])
+        return ans
+    answer = sol(0,0)
     return answer
